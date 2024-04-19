@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import string
 from fast_ml.model_development import train_valid_test_split
+import pickle
 
 # Downloading stop words and wordnet
 nltk.download("wordnet")
@@ -72,12 +73,13 @@ if __name__ == "__main__":
         max_features=10000,
     )
 
-    tfidf_df = tfidf.fit_transform(df["abstract"])
+    tfidf = tfidf.fit(df["abstract"])
+    tfidf_df = tfidf.transform(df["abstract"])
+
+    # Converting TFIDF to csv
     tfidf_df = pd.DataFrame(
         tfidf_df.todense().round(1), columns=tfidf.get_feature_names_out()
     )
-
-    # Converting TFIDF to csv
     tfidf_df["y_vector"] = df["label"]
     tfidf_df.to_csv("Features/TFIDF/TFIDF.csv", index=False)
 
@@ -89,10 +91,11 @@ if __name__ == "__main__":
         max_features=10000,
     )
 
-    tf_df = tf.fit_transform(df["abstract"])
-    tf_df = pd.DataFrame(tf_df.todense().round(1), columns=tf.get_feature_names_out())
+    tf = tf.fit(df["abstract"])
+    tf_df = tf.transform(df["abstract"])
 
     # Converting TF to csv
+    tf_df = pd.DataFrame(tf_df.todense().round(1), columns=tf.get_feature_names_out())
     tf_df["y_vector"] = df["label"]
     tf_df.to_csv("Features/TF/TF.csv", index=False)
 
@@ -139,3 +142,10 @@ if __name__ == "__main__":
     print(f"TF_y_valid: {y2_valid.shape}")
     print(f"TF_x_test: {x2_test.shape}")
     print(f"TF_y_test: {y2_test.shape}")
+
+    # Saving the vectorizers
+    with open("vectorizers/tfidf.pkl", "wb") as f:
+        vec_tfidf = pickle.dump(tfidf, f)
+
+    with open("vectorizers/tf.pkl", "wb") as f:
+        vec_tf = pickle.dump(tf, f)
