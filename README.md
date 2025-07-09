@@ -1,6 +1,7 @@
 # 🤖 Detecting AI-Generated Content using Machine Learning
 
 **EECE5644 – Machine Learning and Pattern Recognition**
+
 Master’s Project – Northeastern University
 
 ---
