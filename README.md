@@ -1,8 +1,9 @@
 # 🤖 Detecting AI-Generated Content using Machine Learning
 
-**EECE5644 – Machine Learning and Pattern Recognition**
-
-Master’s Project – Northeastern University
+Course Instructor: **Prof. Stratis Ioannidis**  
+Course Name: **Machine Learning and Pattern Recognition**  
+Course Number: **EECE 5644**  
+_Master’s Coursework – Northeastern University_
 
 ---
 
